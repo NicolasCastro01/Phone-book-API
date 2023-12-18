@@ -1,0 +1,38 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Contact {
+  id    Int    @id @default(autoincrement())
+  name  String
+  age   Int
+  Phone Phone?
+
+  createdAt DateTime? @default(now()) @map("created_at")
+  deletedAt DateTime? @map("deleted_at")
+  updatedAt DateTime? @default(now()) @updatedAt @map("updated_at")
+
+  @@map("contact")
+}
+
+model Phone {
+  id     Int    @id @default(autoincrement())
+  number String
+
+  contact   Contact @relation(fields: [contactId], references: [id])
+  contactId Int     @unique
+
+  createdAt DateTime? @default(now()) @map("created_at")
+  deletedAt DateTime? @map("deleted_at")
+  updatedAt DateTime? @default(now()) @updatedAt @map("updated_at")
+
+  @@map("phone")
+}
