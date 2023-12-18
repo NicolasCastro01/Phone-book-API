@@ -107,7 +107,7 @@ export class ContactController {
             deletedAt: deletedTime
         }
 
-        fs.writeFile(path.resolve(__dirname, 'logs', file), JSON.stringify(fileContent), (err) => {
+        fs.writeFile(path.resolve(__dirname, '..', 'logs', file), JSON.stringify(fileContent), (err) => {
             if (err) {
                 console.log(err)
             }
